@@ -1,0 +1,2 @@
+# Scrapo
+Web Automation DSL
