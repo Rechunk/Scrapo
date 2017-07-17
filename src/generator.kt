@@ -2,26 +2,37 @@
  * Created by User on 16.07.2017.
  */
 import org.openqa.selenium.WebDriver
-import java.awt.Desktop
-import java.net.URI
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.phantomjs.PhantomJSDriver
+import kotlin.system.exitProcess
 
 
 class Generator {
-    fun openWebsite(url: String){
 
-        /*if (Desktop.isDesktopSupported()){
-            Desktop.getDesktop().browse(URI(url))
-        }*/
+    var driver: WebDriver? = null
 
-        val driver: WebDriver = ChromeDriver()
+    fun setWebdriver(browser: String){
+        when (browser){
+            "CHROME" -> {
+                System.setProperty("webdriver.chrome.driver", ".\\webdrivers\\chromedriver.exe")
+                driver = ChromeDriver()
+            }
+            else -> {
+                throw IllegalArgumentException("The '$browser' Browser count not be found!")
+            }
+        }
+    }
 
-        driver.get("https://google.com")
+    fun openWebsite(driver: WebDriver, url: String){
+
+        driver.get(url)
+    }
+
+    fun closeWebbrowser(){
 
     }
 
     fun getWebsiteSourceCode(url: String){
-        val driver: WebDriver = PhantomJSDriver()
     }
 }
