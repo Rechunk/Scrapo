@@ -1,7 +1,8 @@
 
 enum class TokenType {
-    STRING, NUMBER, UNDEFINED
+    UNDEFINED, WORD, STRING, INT, FLOAT, BOOLEAN
 }
 
-class Token(type: TokenType, value: String)
+
+class Token(val type: TokenType, val value: String, val position: IntRange = 0..0)
 
