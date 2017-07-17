@@ -2,12 +2,10 @@ import org.junit.Test
 
 import org.junit.Assert.*
 
-/**
- * Created by User on 17.07.2017.
- */
 class ParserTest {
     @Test
     fun parse() {
+        assertEquals(4, 4)
     }
 
 }
