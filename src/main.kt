@@ -1,4 +1,13 @@
+import java.io.File
 
 fun main(args: Array<String>){
-    var x: Lexer = Lexer()
+    val lexer: Lexer = Lexer()
+    val parser: Parser = Parser()
+
+    val file: File = File("C:\\Users\\User\\Desktop\\Scrapo\\src\\code.txt")
+    val tokens = lexer.lex(file.readText() + " ")
+    parser.parse(tokens)
+
+    tokens.forEach { println(it.value) }
+
 }
