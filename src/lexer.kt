@@ -8,7 +8,7 @@ class Lexer {
         while (i < file.length){
 
             if (file[i].isLetter()){
-                var word = ""
+                    var word = ""
                 while (file[i].isLetter()){
                     word += file[i]
                     i++
