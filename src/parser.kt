@@ -1,3 +1,5 @@
+import kotlin.reflect.jvm.internal.impl.serialization.deserialization.FlexibleTypeDeserializer
+
 /**
  * Created by User on 15.07.2017.
  */
@@ -10,8 +12,11 @@ class Parser {
 
         fun handleWord(value: String, i: Int){
             when (tokens[i].value){
+                "BROWSER" -> {
+                    generator.setWebdriver(tokens[i+1].value)
+                }
                 "OPEN" -> {
-                    generator.openWebsite(tokens[i+1].value)
+                    generator.openWebsite(generator.driver!!, tokens[i+1].value)
                 }
                 "GET" -> {
                     generator.getWebsiteSourceCode(tokens[i+1].value)
