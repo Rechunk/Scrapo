@@ -12,9 +12,6 @@ class Parser {
 
         fun handleWord(value: String, i: Int){
             when (tokens[i].value){
-                "BROWSER" -> {
-                    generator.setWebdriver(tokens[i+1].value)
-                }
                 "OPEN" -> {
                     generator.openWebsite(generator.driver!!, tokens[i+1].value)
                 }
@@ -38,11 +35,14 @@ class Parser {
 
             when (tokens[i].type){
 
-                TokenType.UNDEFINED -> {
-
-                }
                 TokenType.WORD -> {
                     handleWord(tokens[i].value, i)
+                }
+                TokenType.OPERATOR -> {
+                    // TODO: Organize to words
+                    if (tokens[i-1].value == "BROWSER"){
+                        generator.setWebdriver(tokens[i+1].value)
+                    }
                 }
                 TokenType.STRING -> {
 
