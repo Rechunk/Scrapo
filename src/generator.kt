@@ -1,6 +1,10 @@
 
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 class Generator {
 
@@ -23,8 +27,14 @@ class Generator {
         driver.get(url)
     }
 
-    fun closeWebbrowser(){
+    fun clickOnClass(driver: WebDriver, className: String){
 
+        driver.findElements(By.className(className))[0].click()
+    }
+
+    fun closeWebbrowser(driver: WebDriver){
+
+        driver.close()
     }
 
     fun getWebsiteSourceCode(url: String){
