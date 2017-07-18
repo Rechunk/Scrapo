@@ -8,7 +8,7 @@ class Lexer {
         while (i < file.length){
 
             if (file[i].isLetter()){
-                    var word = ""
+                var word = ""
                 while (file[i].isLetter()){
                     word += file[i]
                     i++
@@ -28,6 +28,12 @@ class Lexer {
             else if (file[i] == '='){
                 tokens.add(Token(TokenType.OPERATOR, "="))
             }
+            else {
+                if (file[i] != '\n' && file[i] != '\r' && file[i] != ' ')
+                    throw NotImplementedError("Not implemented")
+
+            }
+
             i++
         }
 
