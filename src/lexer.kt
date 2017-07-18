@@ -13,6 +13,7 @@ class Lexer {
                     word += file[i]
                     i++
                 }
+                i--
                 tokens.add(Token(TokenType.WORD, word))
             }
             else if (file[i] == '"'){
@@ -23,6 +24,9 @@ class Lexer {
                     i++
                 }
                 tokens.add(Token(TokenType.STRING, string))
+            }
+            else if (file[i] == '='){
+                tokens.add(Token(TokenType.OPERATOR, "="))
             }
             i++
         }
