@@ -1,6 +1,6 @@
 
 enum class TokenType {
-    UNDEFINED, WORD, STRING, INT, FLOAT, BOOLEAN
+    WORD, STRING, OPERATOR
 }
 
 
