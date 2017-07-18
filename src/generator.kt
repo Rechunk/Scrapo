@@ -1,12 +1,6 @@
-/**
- * Created by User on 16.07.2017.
- */
+
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
-import org.openqa.selenium.firefox.FirefoxDriver
-import org.openqa.selenium.phantomjs.PhantomJSDriver
-import kotlin.system.exitProcess
-
 
 class Generator {
 
