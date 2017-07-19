@@ -1,4 +1,4 @@
 BROWSER="CHROME"
-OPEN "https://www.google.com"
-CLICK CLASS "gb_P"
+OPEN "http://localhost:1234/automationsite/"
+CLICK[0] CLASS "create-account-btn"
 CLOSE
