@@ -8,7 +8,7 @@ A guide on running the scripts is soon to come.
 
 
 
-### - Initialize the Browser you want to use:
+### Initialize the Browser you want to use:
 
 Syntax:
 ```
@@ -19,7 +19,7 @@ Currently supported browsers: "CHROME"
 
 ---
 
-### - Open a Website
+### Open a Website
 
 Syntax:
 ```
@@ -28,7 +28,7 @@ OPEN "urltowebsite"
 
 ---
 
-### - Click on Elements
+### Click on Elements
 
 Syntax:
 ```
