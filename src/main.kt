@@ -6,10 +6,10 @@ fun main(args: Array<String>){
 
     val lexer: Lexer = Lexer()
     val tokens = lexer.lex(file.readText() + ' ')
+    //tokens.forEach { println(it.value) }
 
     val parser: Parser = Parser()
     parser.parse(tokens)
 
-    tokens.forEach { println(it.value) }
 
 }
