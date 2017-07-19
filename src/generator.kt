@@ -5,6 +5,8 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import java.util.*
+import kotlin.concurrent.*
 
 class Generator {
 
@@ -27,9 +29,13 @@ class Generator {
         driver.get(url)
     }
 
-    fun clickOnClass(driver: WebDriver, className: String){
+    fun clickOnClass(driver: WebDriver, className: String, index: Int){
 
-        driver.findElements(By.className(className))[0].click()
+        driver.findElements(By.className(className))[index].click()
+    }
+
+    fun clickOnId(driver: WebDriver, id: String, index: Int){
+        driver.findElements(By.id(id))[index].click()
     }
 
     fun closeWebbrowser(driver: WebDriver){
