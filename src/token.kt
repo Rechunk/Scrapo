@@ -1,8 +1,8 @@
 
 enum class TokenType {
-    WORD, STRING, OPERATOR
+    WORD, STRING, INT, OPERATOR, GROUPING_SYMBOL
 }
 
 
-class Token(val type: TokenType, val value: String, val position: IntRange = 0..0)
+class Token(val type: TokenType, val value: String)
 
