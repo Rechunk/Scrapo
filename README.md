@@ -17,9 +17,7 @@ BROWSER="BROWSERNAME"
 
 Currently supported browsers: "CHROME"
 
-
-
-
+---
 
 ### - Open a Website
 
@@ -28,9 +26,7 @@ Syntax:
 OPEN "urltowebsite"
 '''
 
-
-
-
+---
 
 ### - Click on Elements
 
