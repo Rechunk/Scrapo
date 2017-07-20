@@ -1,5 +1,6 @@
 import com.sun.corba.se.impl.io.TypeMismatchException
 import org.openqa.selenium.By
+import org.openqa.selenium.NotFoundException
 
 class Parser {
 
@@ -94,10 +95,15 @@ class Parser {
                     }
                 }
                 TokenType.OPERATOR -> {
-                    // TODO: Organize to words
-                    if (tokens[i-1].value == "BROWSER"){
-                        addTestingValue("SET-BROWSER-${tokens[i+1].value}")
-                        generator.setWebdriver(tokens[i+1].value)
+                    when (tokens[i-1].value){
+                        "BROWSER" -> {
+                            addTestingValue("SET-BROWSER-${tokens[i+1].value}")
+                            generator.setWebdriver(tokens[i+1].value)
+                        }
+                        else -> {
+                            addTestingValue("VARIABLE-ASSIGNMENT-COMING-SOON")
+                            // TODO: Variable assignment goes here
+                        }
                     }
                 }
                 TokenType.STRING -> {
