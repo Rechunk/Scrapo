@@ -8,6 +8,8 @@ A guide on running the scripts is soon to come.
 
 
 
+
+
 ### Initialize the Browser you want to use:
 
 Syntax:
@@ -19,6 +21,8 @@ Currently supported browsers: "CHROME"
 
 ---
 
+
+
 ### Open a Website
 
 Syntax:
@@ -27,6 +31,8 @@ OPEN "urltowebsite"
 ```
 
 ---
+
+
 
 ### Click on Elements
 
