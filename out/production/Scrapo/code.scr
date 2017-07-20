@@ -1,4 +1,3 @@
 BROWSER="CHROME"
 OPEN "http://localhost:1234/automationsite/"
-CLICK[0] CLASS "create-account-btn"
-CLOSE
+TYPE[0] CLASS "login-username-fsasdield-class"
