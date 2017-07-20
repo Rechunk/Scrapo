@@ -9,7 +9,8 @@ class ParserTest {
         val tokens = lexer.lex("""
         BROWSER="CHROME"
         OPEN "http://localhost:1234/automationsite/"
-        CLICK[0] CLASS "create-account-btn"
+        TYPE[0] ID "login-username-field-id"
+        CLICK[0] CLASS "create-account-btn-class"
         CLOSE
 """)
 
@@ -20,8 +21,9 @@ class ParserTest {
 
         assertEquals(data[0], "SET-BROWSER-CHROME")
         assertEquals(data[1], "OPEN-http://localhost:1234/automationsite/")
-        assertEquals(data[2], "CLICK[0]-CLASS-create-account-btn")
-        assertEquals(data[3], "CLOSE")
+        assertEquals(data[2], "TYPE[0]-login-username-field-id")
+        assertEquals(data[3], "CLICK[0]-create-account-btn-class")
+        assertEquals(data[4], "CLOSE")
     }
 
 }

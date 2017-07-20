@@ -2,7 +2,7 @@ import java.io.File
 
 fun main(args: Array<String>){
 
-    val file: File = File("C:\\Users\\User\\Desktop\\Scrapo\\src\\code.sp")
+    val file: File = File("C:\\Users\\User\\Desktop\\Scrapo\\src\\code.scr")
 
     val lexer: Lexer = Lexer()
     val tokens = lexer.lex(file.readText() + ' ')
@@ -10,6 +10,4 @@ fun main(args: Array<String>){
 
     val parser: Parser = Parser()
     parser.parse(tokens)
-
-
 }

@@ -29,13 +29,24 @@ class Generator {
         driver.get(url)
     }
 
-    fun clickOnClass(driver: WebDriver, className: String, index: Int){
+    fun clickOn(selector: By, driver: WebDriver, index: Int) {
 
-        driver.findElements(By.className(className))[index].click()
+        try {
+            driver.findElements(selector)[index].click()
+        }
+        catch (ex: IndexOutOfBoundsException){
+            throw ElementNotFoundException("The element called $selector could not be found")
+        }
     }
 
-    fun clickOnId(driver: WebDriver, id: String, index: Int){
-        driver.findElements(By.id(id))[index].click()
+    fun typeInto(selector: By, driver: WebDriver, index: Int){
+
+        try {
+            driver.findElements(selector)[index].sendKeys("This is really it...")
+        }
+        catch (ex: IndexOutOfBoundsException){
+            throw ElementNotFoundException("The element called $selector could not be found")
+        }
     }
 
     fun closeWebbrowser(driver: WebDriver){
