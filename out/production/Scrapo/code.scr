@@ -1,5 +1,4 @@
 BROWSER="CHROME"
-OPEN "http://localhost:1234/automationsite/"
+OPEN "http://localhost:1234/automationsite"
 TYPE[0] CLASS "login-username-field-class"
-WAIT 5000
 CLOSE

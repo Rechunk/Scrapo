@@ -28,6 +28,7 @@ class Parser {
                         index = tokens[i+2].value.toInt()
                         i += 4
                     } else {
+                        generator.closeWebbrowser(generator.driver!!)
                         throw IndexNotIntegerException("The index '${tokens[i+2].value}' is not an integer!")
                     }
                 } else {
@@ -37,6 +38,7 @@ class Parser {
                 }
 
                 if (tokens[i+1].type != TokenType.STRING){
+                    generator.closeWebbrowser(generator.driver!!)
                     throw TypeMismatchException("The Keyword '$keyword[index]' needs to be followed by a string")
                 }
 
@@ -59,8 +61,16 @@ class Parser {
                 TokenType.WORD -> {
                     when (tokens[i].value){
                         "OPEN" -> { // SYNTAX: OPEN "URL"
-                            addTestingValue("OPEN-${tokens[i+1].value}")
-                            generator.openWebsite(generator.driver!!, tokens[i+1].value)
+                            val url = tokens[i+1]
+                            if (url.type == TokenType.STRING && url.value.contains(Regex("http[s]*://"))){
+                                addTestingValue("OPEN-${tokens[i+1].value}")
+                                generator.openWebsite(generator.driver!!, tokens[i+1].value)
+                            }
+                            else {
+                                addTestingValue("OPEN-INVALID-URL")
+                                generator.closeWebbrowser(generator.driver!!)
+                                throw TypeMismatchException("'OPEN' must be followed by a string containing the full url")
+                            }
                             i++
                         }
                         "CLOSE" -> { // SYNTAX: CLOSE
@@ -82,6 +92,7 @@ class Parser {
                                 val time: Long = value.toLong()
                                 generator.waitTime(time)
                             } catch (ex: Exception){
+                                generator.closeWebbrowser(generator.driver!!)
                                 throw TypeMismatchException("The value '$value' specified along 'WAIT'" +
                                         " is not a LongType.")
                             }
@@ -89,6 +100,7 @@ class Parser {
                         else -> {
                             if (!isConstant(tokens[i].value)){
                                 addTestingValue("KEYWORD-NOT-FOUND")
+                                generator.closeWebbrowser(generator.driver!!)
                                 throw KeywordNotFoundException("'${tokens[i].value}' could not be found!")
                             }
                         }
