@@ -1,5 +1,4 @@
 import org.openqa.selenium.By
-import org.openqa.selenium.WebDriver
 
 class Parser {
 
@@ -13,7 +12,7 @@ class Parser {
             testingData.add(value)
         }
 
-        fun foundIndex(i: Int) : Boolean {
+        fun userSpecifiedIndex(i: Int) : Boolean {
             return (tokens[i + 1].value + tokens[i + 3].value == "[]")
         }
 
@@ -22,10 +21,12 @@ class Parser {
 
             fun handleIndexCall(tokenValue: String){
                 var index: Int = 0
-                if (foundIndex(i)){
+                if (userSpecifiedIndex(i)){
                     if (tokens[i+2].type == TokenType.INT){
                         index = tokens[i+2].value.toInt()
                         i += 4
+                    } else {
+                        throw IndexNotIntegerException("The index '${tokens[i+2].value}' is not an integer!")
                     }
                 } else {
                     index = 0
@@ -66,6 +67,11 @@ class Parser {
                         }
                         "TYPE" -> {
                             handleIndexCall(tokens[i].value)
+                        }
+                        "WAIT" -> {
+                            i++
+                            addTestingValue("WAIT-${tokens[i].value}")
+                            generator.waitTime(tokens[i].value.toLong())
                         }
                         else -> {
                             if (!isConstant(tokens[i].value)){

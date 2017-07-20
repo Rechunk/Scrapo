@@ -49,6 +49,11 @@ class Generator {
         }
     }
 
+    fun waitTime(milliseconds: Long){
+
+        Thread.sleep(milliseconds)
+    }
+
     fun closeWebbrowser(driver: WebDriver){
 
         driver.close()
