@@ -1,3 +1,4 @@
+import com.sun.corba.se.impl.io.TypeMismatchException
 import org.openqa.selenium.By
 
 class Parser {
@@ -19,7 +20,7 @@ class Parser {
         var i = 0
         while (i < tokens.size-1){
 
-            fun handleIndexCall(tokenValue: String){
+            fun handleFunctionCallWithIndex(keyword: String){
                 var index: Int = 0
                 if (userSpecifiedIndex(i)){
                     if (tokens[i+2].type == TokenType.INT){
@@ -34,9 +35,13 @@ class Parser {
                     addTestingValue("CLICK")
                 }
 
+                if (tokens[i+1].type != TokenType.STRING){
+                    throw TypeMismatchException("The Keyword '$keyword[index]' needs to be followed by a string")
+                }
+
                 val selector = if (tokens[i].value == "CLASS") By.className(tokens[i+1].value)
                     else By.id(tokens[i+1].value)
-                when (tokenValue){
+                when (keyword){
                     "CLICK" -> {
                         generator.clickOn(selector, generator.driver!!, index)
                         addTestingValue("CLICK[$index]-${tokens[i+1].value}")
@@ -62,16 +67,23 @@ class Parser {
                             generator.closeWebbrowser(generator.driver!!)
                         }
                         "CLICK" -> { // SYNTAX: CLICK[INDEX] || CLICK
-                            handleIndexCall(tokens[i].value)
+                            handleFunctionCallWithIndex(tokens[i].value)
                             i++
                         }
                         "TYPE" -> {
-                            handleIndexCall(tokens[i].value)
+                            handleFunctionCallWithIndex(tokens[i].value)
                         }
                         "WAIT" -> {
                             i++
                             addTestingValue("WAIT-${tokens[i].value}")
-                            generator.waitTime(tokens[i].value.toLong())
+                            val value = tokens[i].value
+                            try {
+                                val time: Long = value.toLong()
+                                generator.waitTime(time)
+                            } catch (ex: Exception){
+                                throw TypeMismatchException("The value '$value' specified along 'WAIT'" +
+                                        " is not a LongType.")
+                            }
                         }
                         else -> {
                             if (!isConstant(tokens[i].value)){
