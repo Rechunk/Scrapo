@@ -1,4 +1,6 @@
 BROWSER="CHROME"
-OPEN "http://localhost:1234/automationsite"
-TYPE[0] CLASS "login-username-field-class"
+OPEN "https://www.fiverr.com"
+CLICK CLASS "js-open-popup-login"
+TYPE CLASS "js-form-login" "Me"
+WAIT 2000
 CLOSE

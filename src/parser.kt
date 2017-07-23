@@ -50,8 +50,14 @@ class Parser {
                         addTestingValue("CLICK[$index]-${tokens[i+1].value}")
                     }
                     "TYPE" -> {
-                        generator.typeInto(selector, generator.driver!!, index)
-                        addTestingValue("TYPE[$index]-${tokens[i+1].value}")
+                        if (tokens[i+2].type == TokenType.STRING){
+                            generator.typeInto(selector, generator.driver!!, index, tokens[i+2].value)
+                            addTestingValue("TYPE[$index]-${tokens[i+1].value}")
+                        }
+                        else {
+                            throw IllegalArgumentException("'TYPE' can only type a string into a searchbox")
+                        }
+
                     }
                 }
 
