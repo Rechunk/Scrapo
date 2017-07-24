@@ -63,7 +63,6 @@ class Parser {
                     }
                     "REMOVE" -> {
                         addTestingValue("REMOVE-${tokens[i+1].value}")
-                        val executor: JavascriptExecutor = generator.driver!! as JavascriptExecutor
                         var query = ""
                         when (tokens[i].value){
                             "CLASS" -> {
@@ -73,7 +72,7 @@ class Parser {
                                 query = "document.getElementById(\"${tokens[i+1].value}\").remove()"
                             }
                         }
-                        generator.interactWithElement({executor.executeScript(query)}, selector, index)
+                        generator.interactWithElement({generator.executeScript(query)}, selector, index)
                     }
                 }
 
@@ -102,6 +101,14 @@ class Parser {
                         "CLICK", "TYPE", "REMOVE" -> { // SYNTAX: CLICK[INDEX] || CLICK
                             handleFunctionCallWithIndex(tokens[i].value)
                             i++
+                        }
+                        "ALERT" -> {
+                            i++
+                            generator.executeScript("alert(\"${tokens[i].value}\")")
+                        }
+                        "PRINT" -> {
+                            i++
+                            generator.performPrint(tokens[i].value)
                         }
                         "WAIT" -> {
                             i++

@@ -1,18 +1,7 @@
-
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.chrome.ChromeDriver
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.util.*
-import kotlin.concurrent.*
-import sun.security.jgss.GSSUtil.login
-import com.google.gson.annotations.Until
-import org.openqa.selenium.ElementNotVisibleException
-
 
 class Generator {
 
@@ -35,21 +24,34 @@ class Generator {
         driver.get(url)
     }
 
-    fun interactWithElement(function: () -> Unit, selector: By, index: Int){
+    fun executeScript(query: String){
+        val executor: JavascriptExecutor = driver!! as JavascriptExecutor
+        executor.executeScript(query)
+    }
+
+    fun interactWithElement(performInteraction: () -> Unit, selector: By, index: Int){
 
         try {
             try {
-                function()
+                performInteraction()
             }
             catch(ex: Exception){
                 Thread.sleep(1000)
-                interactWithElement(function, selector, index)
+                interactWithElement(performInteraction, selector, index)
             }
         }
         catch (ex: Exception){
             closeWebbrowser()
             throw ElementNotFoundException("The element called $selector could not be found")
         }
+    }
+
+    fun performPrint(toPrint: String){
+        println(toPrint)
+    }
+
+    fun alert(toAlert: String){
+
     }
 
     fun waitTime(milliseconds: Long){
