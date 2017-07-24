@@ -44,6 +44,16 @@ class Lexer {
                 i--
                 tokens.add(Token(TokenType.INT, int))
             }
+            else if (file[i] == '#'){
+                while (file[i] != '\n'){
+                    i++
+                }
+            }
+            else if (file[i] == '/'){
+                while (file[i] != '/'){
+                    i++
+                }
+            }
             else {
                 if (file[i] != '\n' && file[i] != '\r' && file[i] != ' ')
                     throw NotImplementedError("Not implemented")

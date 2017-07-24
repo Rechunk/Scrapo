@@ -1,6 +1,5 @@
 BROWSER="CHROME"
-OPEN "https://www.fiverr.com"
-CLICK CLASS "js-open-popup-login"
-TYPE CLASS "js-form-login" "Me"
-WAIT 2000
+OPEN "http://localhost:1234/automationsite"
+REMOVE ID "create-account-btn-id"
+WAIT 1000
 CLOSE

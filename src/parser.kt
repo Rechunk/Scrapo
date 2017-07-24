@@ -1,5 +1,6 @@
 import com.sun.corba.se.impl.io.TypeMismatchException
 import org.openqa.selenium.By
+import org.openqa.selenium.JavascriptExecutor
 import org.openqa.selenium.NotFoundException
 
 class Parser {
@@ -53,7 +54,7 @@ class Parser {
                     }
                     "TYPE" -> {
                         if (tokens[i+2].type == TokenType.STRING){
-                            addTestingValue("TYPE[$index]-${tokens[i+1].value}")
+                            addTestingValue("TYPE[$index]-${tokens[i+1].value}-${tokens[i+2].value}")
                             val element = generator.driver!!.findElements(selector)[index]
                             generator.interactWithElement({element.sendKeys(tokens[i+2].value)}, selector, index)
                         }
@@ -61,6 +62,19 @@ class Parser {
                             throw IllegalArgumentException("'TYPE' requires a string to type after the selector")
                         }
 
+                    }
+                    "REMOVE" -> {
+                        val executor: JavascriptExecutor = generator.driver!! as JavascriptExecutor
+                        var query = ""
+                        when (tokens[i].value){
+                            "CLASS" -> {
+                                query = "document.getElementsByClassName(\"${tokens[i+1].value}\")[$index].remove()"
+                            }
+                            "ID" -> {
+                                query = "document.getElementById(\"${tokens[i+1].value}\").remove()"
+                            }
+                        }
+                        generator.interactWithElement({executor.executeScript(query)}, selector, index)
                     }
                 }
 
@@ -91,6 +105,9 @@ class Parser {
                             i++
                         }
                         "TYPE" -> {
+                            handleFunctionCallWithIndex(tokens[i].value)
+                        }
+                        "REMOVE" -> {
                             handleFunctionCallWithIndex(tokens[i].value)
                         }
                         "WAIT" -> {

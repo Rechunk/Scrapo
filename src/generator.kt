@@ -19,6 +19,7 @@ class Generator {
     var driver: WebDriver? = null
 
     fun setWebdriver(browser: String){
+
         when (browser){
             "CHROME" -> {
                 System.setProperty("webdriver.chrome.driver", ".\\webdrivers\\chromedriver.exe")
@@ -38,7 +39,6 @@ class Generator {
 
         try {
             try {
-
                 function()
             }
             catch(ex: Exception){
