@@ -22,6 +22,18 @@ Currently supported browsers: "CHROME"
 
 <br>
 
+### Comments
+
+Syntax:
+```
+# Singleline Comment
+/
+Multiline Comment
+/
+```
+
+---
+
 ### Open a Website
 
 Syntax:
@@ -40,8 +52,27 @@ Syntax:
 CLICK[index] CLASS/ID "class/id name"
 ```
 
+<strong>Note: </strong>If no index is provided, it will automatically
+be set to 0.
+
 Example:
 ```
-CLICK[0] CLASS "readmore-btn"
+CLICK CLASS "readmore-btn" # Index set to 0
+CLICK[2] CLASS "figures" # Index is 2
 ```
+
+---
+
+### Remove Elements
+
+Syntax:
+```
+REMOVE[index] CLASS/ID "class/id name"
+```
+
+Example:
+```
+REMOVE CLASS "readmore-btn"
+```
+
 ---
