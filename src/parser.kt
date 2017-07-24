@@ -35,7 +35,6 @@ class Parser {
                 } else {
                     index = 0
                     i++
-                    addTestingValue("CLICK")
                 }
 
                 if (tokens[i+1].type != TokenType.STRING){
@@ -64,6 +63,7 @@ class Parser {
 
                     }
                     "REMOVE" -> {
+                        addTestingValue("REMOVE-${tokens[i+1].value}")
                         val executor: JavascriptExecutor = generator.driver!! as JavascriptExecutor
                         var query = ""
                         when (tokens[i].value){
