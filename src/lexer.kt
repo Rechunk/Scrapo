@@ -50,6 +50,7 @@ class Lexer {
                 }
             }
             else if (file[i] == '/'){
+                i++
                 while (file[i] != '/'){
                     i++
                 }
