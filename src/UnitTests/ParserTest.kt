@@ -23,7 +23,7 @@ class ParserTest {
 
         parser.parse(tokens)
         val data = parser.testingData
-        
+
         assertEquals(data[0], "SET-BROWSER-CHROME")
         assertEquals(data[1], "OPEN-http://localhost:1234/automationsite/")
         assertEquals(data[2], "TYPE[0]-login-username-field-id-typing something in...")
