@@ -1,5 +1,5 @@
 BROWSER="CHROME"
 OPEN "http://localhost:1234/automationsite"
-REMOVE ID "create-account-btn-id"
-WAIT 1000
+CLICK ID "create-account-btn-id"
+WAIT 2000
 CLOSE
