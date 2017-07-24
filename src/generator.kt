@@ -31,54 +31,33 @@ class Generator {
     }
 
     fun openWebsite(driver: WebDriver, url: String){
-
         driver.get(url)
     }
 
-    // TODO: Modularize clickOn && typeInto into one method
-    fun clickOn(selector: By, driver: WebDriver, index: Int) {
+    fun interactWithElement(function: () -> Unit, selector: By, index: Int){
 
         try {
             try {
-                driver.findElements(selector)[index].click()
+
+                function()
             }
             catch(ex: Exception){
                 Thread.sleep(1000)
-                clickOn(selector, driver, index)
+                interactWithElement(function, selector, index)
             }
         }
-        catch (ex: IndexOutOfBoundsException){
-            closeWebbrowser(driver)
-            throw ElementNotFoundException("The element called $selector could not be found")
-        }
-    }
-
-    fun typeInto(selector: By, driver: WebDriver, index: Int, toType: String){
-
-        try {
-            try {
-                driver.findElements(selector)[index].sendKeys(toType)
-            }
-            catch(ex: Exception){
-                Thread.sleep(1000)
-                typeInto(selector, driver, index, toType)
-            }
-        }
-        catch (ex: IndexOutOfBoundsException){
+        catch (ex: Exception){
+            closeWebbrowser()
             throw ElementNotFoundException("The element called $selector could not be found")
         }
     }
 
     fun waitTime(milliseconds: Long){
-
         Thread.sleep(milliseconds)
     }
 
-    fun closeWebbrowser(driver: WebDriver){
-
-        driver.close()
+    fun closeWebbrowser(){
+        driver!!.close()
     }
 
-    fun getWebsiteSourceCode(url: String){
-    }
 }
