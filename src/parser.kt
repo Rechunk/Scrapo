@@ -15,7 +15,7 @@ class Parser {
         }
 
         fun userSpecifiedIndex(i: Int) : Boolean {
-            return (tokens[i + 1].value + tokens[i + 3].value == "[]")
+            return (tokens[i+1].value + tokens[i+3].value == "[]")
         }
 
         var i = 0
@@ -44,15 +44,18 @@ class Parser {
 
                 val selector = if (tokens[i].value == "CLASS") By.className(tokens[i+1].value)
                     else By.id(tokens[i+1].value)
+
                 when (keyword){
                     "CLICK" -> {
-                        generator.interactWithElement({generator.driver!!.findElements(selector)[index].click()}, selector, index)
                         addTestingValue("CLICK[$index]-${tokens[i+1].value}")
+                        val element = generator.driver!!.findElements(selector)[index]
+                        generator.interactWithElement({element.click()}, selector, index)
                     }
                     "TYPE" -> {
                         if (tokens[i+2].type == TokenType.STRING){
-                            generator.interactWithElement({generator.driver!!.findElements(selector)[index].sendKeys(tokens[i+2].value)}, selector, index)
                             addTestingValue("TYPE[$index]-${tokens[i+1].value}")
+                            val element = generator.driver!!.findElements(selector)[index]
+                            generator.interactWithElement({element.sendKeys(tokens[i+2].value)}, selector, index)
                         }
                         else {
                             throw IllegalArgumentException("'TYPE' requires a string to type after the selector")
