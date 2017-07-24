@@ -28,7 +28,7 @@ class Parser {
                         index = tokens[i+2].value.toInt()
                         i += 4
                     } else {
-                        generator.closeWebbrowser(generator.driver!!)
+                        generator.closeWebbrowser()
                         throw IndexNotIntegerException("The index '${tokens[i+2].value}' is not an integer!")
                     }
                 } else {
@@ -38,7 +38,7 @@ class Parser {
                 }
 
                 if (tokens[i+1].type != TokenType.STRING){
-                    generator.closeWebbrowser(generator.driver!!)
+                    generator.closeWebbrowser()
                     throw TypeMismatchException("The Keyword '$keyword[index]' needs to be followed by a string")
                 }
 
@@ -46,16 +46,16 @@ class Parser {
                     else By.id(tokens[i+1].value)
                 when (keyword){
                     "CLICK" -> {
-                        generator.clickOn(selector, generator.driver!!, index)
+                        generator.interactWithElement({generator.driver!!.findElements(selector)[index].click()}, selector, index)
                         addTestingValue("CLICK[$index]-${tokens[i+1].value}")
                     }
                     "TYPE" -> {
                         if (tokens[i+2].type == TokenType.STRING){
-                            generator.typeInto(selector, generator.driver!!, index, tokens[i+2].value)
+                            generator.interactWithElement({generator.driver!!.findElements(selector)[index].sendKeys(tokens[i+2].value)}, selector, index)
                             addTestingValue("TYPE[$index]-${tokens[i+1].value}")
                         }
                         else {
-                            throw IllegalArgumentException("'TYPE' can only type a string into a searchbox")
+                            throw IllegalArgumentException("'TYPE' requires a string to type after the selector")
                         }
 
                     }
@@ -74,14 +74,14 @@ class Parser {
                             }
                             else {
                                 addTestingValue("OPEN-INVALID-URL")
-                                generator.closeWebbrowser(generator.driver!!)
+                                generator.closeWebbrowser()
                                 throw TypeMismatchException("'OPEN' must be followed by a string containing the full url")
                             }
                             i++
                         }
                         "CLOSE" -> { // SYNTAX: CLOSE
                             addTestingValue("CLOSE")
-                            generator.closeWebbrowser(generator.driver!!)
+                            generator.closeWebbrowser()
                         }
                         "CLICK" -> { // SYNTAX: CLICK[INDEX] || CLICK
                             handleFunctionCallWithIndex(tokens[i].value)
@@ -98,7 +98,7 @@ class Parser {
                                 val time: Long = value.toLong()
                                 generator.waitTime(time)
                             } catch (ex: Exception){
-                                generator.closeWebbrowser(generator.driver!!)
+                                generator.closeWebbrowser()
                                 throw TypeMismatchException("The value '$value' specified along 'WAIT'" +
                                         " is not a LongType.")
                             }
@@ -106,7 +106,7 @@ class Parser {
                         else -> {
                             if (!isConstant(tokens[i].value)){
                                 addTestingValue("KEYWORD-NOT-FOUND")
-                                generator.closeWebbrowser(generator.driver!!)
+                                generator.closeWebbrowser()
                                 throw KeywordNotFoundException("'${tokens[i].value}' could not be found!")
                             }
                         }
