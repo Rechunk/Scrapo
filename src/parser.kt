@@ -33,7 +33,6 @@ class Parser {
                         throw IndexNotIntegerException("The index '${tokens[i+2].value}' is not an integer!")
                     }
                 } else {
-                    index = 0
                     i++
                 }
 
@@ -100,15 +99,9 @@ class Parser {
                             addTestingValue("CLOSE")
                             generator.closeWebbrowser()
                         }
-                        "CLICK" -> { // SYNTAX: CLICK[INDEX] || CLICK
+                        "CLICK", "TYPE", "REMOVE" -> { // SYNTAX: CLICK[INDEX] || CLICK
                             handleFunctionCallWithIndex(tokens[i].value)
                             i++
-                        }
-                        "TYPE" -> {
-                            handleFunctionCallWithIndex(tokens[i].value)
-                        }
-                        "REMOVE" -> {
-                            handleFunctionCallWithIndex(tokens[i].value)
                         }
                         "WAIT" -> {
                             i++
