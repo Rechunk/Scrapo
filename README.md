@@ -1,4 +1,4 @@
-## Note: Project is currently in the beginning stages of development 
+## Note: This was solely an experimental project and is not meant for development use.
 
 <br>
 
